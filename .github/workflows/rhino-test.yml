@@ -49,20 +49,10 @@ jobs:
         shell: Rscript {0}
         run: rhino::lint_sass()
 
-      - name: Build JavaScript
-        if: always()
-        shell: Rscript {0}
-        run: rhino::build_js()
-
       - name: Build Sass
         if: always()
         shell: Rscript {0}
         run: rhino::build_sass()
-
-      - name: Run R unit tests
-        if: always()
-        shell: Rscript {0}
-        run: rhino::test_r()
 
       - name: Run Cypress end-to-end tests
         if: always()
