@@ -1,0 +1,61 @@
+/* Initial center positioning */
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    transform 1s ease-in-out,
+    opacity 1s ease-in-out,
+    height 1s ease-in-out;
+  height: 100vh; /* Full viewport height to center initially */
+  transform: translateY(0); /* Default position */
+}
+
+.logo-container.move-to-top {
+  transform: translateY(-70vh); /* Slide upwards smoothly */
+  opacity: 0.9;
+}
+
+.logo-container.final-state {
+  transform: translateY(0); /* Reset transform after transition */
+  height: auto; /* Shrink to fit text height */
+  opacity: 1; /* Ensure full visibility */
+}
+
+/* Styling for the logo text */
+.logo-text {
+  font-size: 2rem;
+  color: #6f4e37;
+  font-family: "Courier New", monospace;
+  font-weight: bold;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 3px solid #6f4e37;
+  width: 12rem; /* Fixed width matching typing animation length */
+  animation:
+    typing 3s steps(12) forwards,
+    blink-caret 0.5s step-end 6;
+}
+
+/* Typing animation */
+@keyframes typing {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 14.25rem; /* Adjust to the length of 'Coffee App' */
+  }
+}
+
+/* Blinking caret effect */
+@keyframes blink-caret {
+  0%,
+  100% {
+    border-color: transparent;
+  }
+
+  50% {
+    border-color: #6f4e37;
+  }
+}
