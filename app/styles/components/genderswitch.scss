@@ -1,0 +1,26 @@
+.gender-switch {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.switch-option {
+  cursor: pointer;
+  display: flex;
+  width: 2.75rem;
+  color: #e0e0e0;
+  height: 2.75rem;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.switch-option.active {
+  color: #6f4e36;
+  filter: drop-shadow(1px 1px 10px black);
+}
+
+.switch-option svg {
+  width: 100%;
+  height: 100%;
+}

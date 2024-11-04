@@ -34,7 +34,7 @@ server <- function(id) {
       message("Starting long calculation...")
 
       # Imitate a long calculation
-      Sys.sleep(7)  # 3-second delay to imitate processing
+      Sys.sleep(7)  # 7-second delay to imitate processing
 
       # Update status after calculation completes
       message("User data received. Destroying intro screen.")

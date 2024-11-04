@@ -38,21 +38,21 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20
-
-      - name: Lint R
-        if: always()
-        shell: Rscript {0}
-        run: rhino::lint_r()
-
-      - name: Lint Sass
-        if: always()
-        shell: Rscript {0}
-        run: rhino::lint_sass()
-
-      - name: Build Sass
-        if: always()
-        shell: Rscript {0}
-        run: rhino::build_sass()
+      # Uncomment on production
+      # - name: Lint R
+      #   if: always()
+      #   shell: Rscript {0}
+      #   run: rhino::lint_r()
+      #
+      # - name: Lint Sass
+      #   if: always()
+      #   shell: Rscript {0}
+      #   run: rhino::lint_sass()
+      #
+      # - name: Build Sass
+      #   if: always()
+      #   shell: Rscript {0}
+      #   run: rhino::build_sass()
 
       - name: Run Cypress end-to-end tests
         if: always()

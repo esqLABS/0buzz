@@ -3,7 +3,7 @@ const AppLogo = require('./AppLogo.js').default;
 const Stepper = require('./Stepper.js').default;
 const LoadingScreen = require('./LoadingScreen.js').default;
 
-export default function IntroScreen({ id }) {
+export default function IntroScreen({ id, init_shiny_data, ethinicity_options, metabolism_options }) {
   const [showLoading, setShowLoading] = useState(false);
   const [showStepper, setShowStepper] = useState(false);
 
@@ -22,7 +22,12 @@ export default function IntroScreen({ id }) {
       ) : (
         <div className="app-container">
           <AppLogo onAnimationComplete={handleLogoAnimationComplete} />
-          {showStepper && <Stepper id={id} onComplete={handleStepperComplete} />}
+          {showStepper && <Stepper id={id}
+                                   initShinyData={init_shiny_data}
+                                   onComplete={handleStepperComplete}
+                                   ethinicityOptions={ethinicity_options}
+                                   metabolismOptions={metabolism_options}
+                          />}
         </div>
       )}
     </div>

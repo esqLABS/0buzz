@@ -1,26 +1,60 @@
 const { useState } = React;
+const Dropdown = require('./components/Dropdown.js').default;
+const GenderSwitch = require('./components/GenderSwitch.js').default;
+const NumericSlider = require('./components/NumericSlider.js').default;
+const CategoricalSlider = require('./components/CategoricalSlider.js').default;
+const SmokerCheckbox = require('./components/SmokerCheckbox.js').default;
+const Intake = require('./components/Intake.js').default;
 
-export default function Stepper({id, onComplete }) {
+export default function Stepper({id, initShinyData, ethinicityOptions, metabolismOptions, onComplete }) {
   const [step, setStep] = useState(1);
-  // TEMP: DEV
-  const user_info = {
-    height: 170,
-    weight: 60,
-    smoker: false,
-    metabolism: "medium",
-    age: 25
-  };
 
-  const handleNextStep = () => {
-    if (step < 2) {
-      setStep(step + 1); // Move to the next step
-    } else {
-      onComplete(); // Notify parent to show LoadingScreen
-      console.log("User info:", user_info);
-      console.log(id);
-      Shiny.setInputValue(`${id}`, user_info); // Trigger the calculation
-    }
-  };
+  console.log("initShinyData: ", initShinyData);
+
+    const [shinyData, setShinyData] = useState({
+        ethnicity: initShinyData.ethnicity,
+        gender: initShinyData.gender,
+        age: initShinyData.age,
+        height: initShinyData.height,
+        weight: initShinyData.weight,
+        intakes: initShinyData.intakes,
+        metabolism: initShinyData.metabolism,
+        smoker: initShinyData.smoker
+    });
+    const [intakes, setIntakes] = useState(initShinyData.intakes);
+    const handleIntakeChange = (updatedIntakes) => {
+        setIntakes(updatedIntakes);
+        setShinyData(prevData => ({
+            ...prevData,
+            intakes: updatedIntakes
+        }));
+    };
+
+    const handleAddIntake = () => {
+        const newIntakes = [...intakes, { type: '', time: '', selected: false }];
+        setIntakes(newIntakes);
+        setShinyData(prevData => ({
+            ...prevData,
+            intakes: newIntakes
+        }));
+    };
+
+    const handleSliderChange = (identifier, value) => {
+        setShinyData(prevData => ({
+            ...prevData,
+            [identifier]: value
+        }));
+    };
+
+
+    const handleNextStep = () => {
+        if (step < 2) {
+            setStep(step + 1); // Move to the next step
+        } else {
+            Shiny.setInputValue(`${id}`, shinyData); // Trigger the calculation
+            onComplete(); // Notify parent to show LoadingScreen
+        }
+    };
 
   return (
     <div className="stepper-card">
@@ -34,20 +68,63 @@ export default function Stepper({id, onComplete }) {
         {step === 1 && (
           <div className="step">
             <p>Step 1 of 2</p>
-            {/*<input type="text" placeholder="Enter your name" />*/}
-            <p>
-              <i>TBD: User info</i>
-            </p>
+            <Dropdown initialValue={initShinyData.ethnicity}
+                      dropdownOptions={ethinicityOptions}
+                      onChange={
+                        (value) => handleSliderChange('ethnicity', value)
+                      }
+            />
+            <GenderSwitch initialValue={initShinyData.gender}
+                          onChange={
+                            (value) => handleSliderChange('gender', value)
+                          }
+            />
+            <NumericSlider
+              min={5}
+              max={105}
+              step={1}
+              initialValue={initShinyData.age}
+              onChange={
+                (value) => handleSliderChange('age', value)
+              }
+            />
+            <NumericSlider
+              min={1.00} max={2.20} step={0.01}
+              initialValue={initShinyData.height}
+              onChange={
+                (value) => handleSliderChange('height', value)
+              }
+            />
+            <NumericSlider
+              min={10} max={210} step={1} initialValue={initShinyData.weight}
+              onChange={
+                (value) => handleSliderChange('weight', value)
+              }
+            />
+            <CategoricalSlider
+              options={metabolismOptions}
+              initialValue={initShinyData.metabolism}
+              onChange={
+                (value) => handleSliderChange('metabolism', value)
+              }
+            />
+            <SmokerCheckbox
+              initialChecked={initShinyData.smoker}
+              onChange={
+                (value) => handleSliderChange('smoker', value)
+              }
+            />
             <button onClick={handleNextStep}>Next</button>
           </div>
         )}
         {step === 2 && (
           <div className="step">
             <p>Step 2 of 2</p>
-            {/*<input type="email" placeholder="Enter your email" />*/}
-            <p>
-              <i>TBD: Intake</i>
-            </p>
+            <Intake
+              intakes={intakes}
+              onIntakeChange={handleIntakeChange}
+              onAddIntake={handleAddIntake}
+            />
             <button onClick={handleNextStep}>Calculate</button>
           </div>
         )}

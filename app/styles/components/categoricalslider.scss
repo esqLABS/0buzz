@@ -1,0 +1,38 @@
+.categorical-slider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.slider-option {
+  position: relative;
+  cursor: pointer;
+  width: 5rem;
+  height: 2rem;
+  display: flex;
+  background-color: #eae8e8;
+  border-radius: 25px;
+  color: #321313;
+  font-weight: 600;
+  transition: background-color 0.3s;
+  align-items: center;
+  justify-content: center;
+}
+
+.slider-input {
+  display: none; /* Hide the radio input */
+}
+
+.slider-option:hover {
+  background-color: #eae8e8;
+}
+
+/* Highlight selected option */
+.slider-option.active {
+  background-color: #f4991b;
+  color: #ffffff;
+  font-weight: bold;
+}
