@@ -7,6 +7,7 @@ box::use(
   app/view/intro_screen,
   app/view/result_screen,
   app/logic/simulation[load_simulation],
+  app/logic/individual[set_individual]
 )
 
 #' @export
@@ -31,6 +32,11 @@ server <- function(id) {
     simulation <- load_simulation()
 
     intro_screen$server("intro_screen", app_data)
+
+    # When user characteristics are received, apply them to the simulation
+    observeEvent(app_data$user_data, {
+      set_individual(simulation, app_data$user_data)
+    })
 
     observeEvent(app_data$user_data, {
       # Indicate calculation start
