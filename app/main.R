@@ -6,6 +6,7 @@ box::use(
   # Import the component
   app/view/intro_screen,
   app/view/result_screen,
+  app/logic/simulation[load_simulation],
 )
 
 #' @export
@@ -26,6 +27,8 @@ server <- function(id) {
       destroy_intro_screen = NULL,
       user_data = NULL
     )
+
+    simulation <- load_simulation()
 
     intro_screen$server("intro_screen", app_data)
 
