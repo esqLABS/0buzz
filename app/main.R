@@ -38,6 +38,11 @@ server <- function(id) {
       set_individual(simulation, app_data$user_data)
     })
 
+    # When user modifies caffeine intakes, update the simulation
+    # observeEvent(app_data$user_data$intakes,{
+    #   set_intakes(simulation, app_data$user_data$intakes)
+    # })
+
     observeEvent(app_data$user_data, {
       # Indicate calculation start
       message("Starting long calculation...")
