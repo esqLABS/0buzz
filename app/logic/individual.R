@@ -5,12 +5,34 @@ box::use(
 )
 
 set_individual <- function(simulation, user_data) {
+  message("Applying individual characteristics to the simulation")
   # Create individual
   individual <- create_individual(user_data)
   # Apply individual parameters to the simulation
   ospsuite::setParameterValuesByPath(
     parameterPaths = individual$distributedParameters$paths,
     values         = individual$distributedParameters$values,
+    simulation     = simulation
+  )
+
+  # Set CYP1A2 concentration to reflect metabolism and Smoker status
+  CYP1A2_ref_conc <- ospsuite::getParameter("CYP1A2|Reference concentration", sim)$value # default is 1.8
+
+  # Metabolism level
+  metabolism_factor <- case_match(
+    user_data$metabolism,
+    "slow" ~ 0.2,
+    "normal" ~ 1,
+    "fast" ~ 5
+  )
+
+  # Smoker status
+  smoker_factor <- if (user_data$smoker) 3.5 else 1
+
+  ospsuite::setParameterValuesByPath(
+    parameterPaths = "CYP1A2|Reference concentration",
+    values         = CYP1A2_ref_conc * metabolism_factor * smoker_factor,
+    unit           = "µmol/l",
     simulation     = simulation
   )
 }
