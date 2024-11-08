@@ -13,10 +13,10 @@ ui <- makeModuleUIDestroyable(
     tagList(
       intro_screen_page(
         id = ns("intro"),
-        ethinicity_options = c("Option 1", "Option 2", "Option 3"),
+        ethinicity_options = c("European", "White American", "Black American","Mexican American", "Asian", "Japanese"),
         metabolism_options = c("low", "normal", "high"),
         init_shiny_data = list(
-          ethnicity = "Option 1",
+          ethnicity = "European",
           gender = "male", # Options: 'male', 'female'
           age = 25,
           height = 1.70,
