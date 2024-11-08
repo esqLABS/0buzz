@@ -5,6 +5,6 @@ box::use(
 
 
 load_simulation <- function(){
-  message("Loading Simulation")
+  message("Initializing Simulation")
   return(ospsuite::loadSimulation("app/logic/coffee-sim.pkml"))
 }
