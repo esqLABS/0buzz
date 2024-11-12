@@ -31,7 +31,7 @@ export default function Stepper({id, initShinyData, ethinicityOptions, metabolis
     };
 
     const handleAddIntake = () => {
-        const newIntakes = [...intakes, { type: '', time: '', selected: false }];
+        const newIntakes = [...intakes, { type: '', time: '', selected: true }];
         setIntakes(newIntakes);
         setShinyData(prevData => ({
             ...prevData,
@@ -52,7 +52,7 @@ export default function Stepper({id, initShinyData, ethinicityOptions, metabolis
             setStep(step + 1); // Move to the next step
             Shiny.setInputValue(`${id}_userdata`, shinyData); // Send user data
         } else {
-            Shiny.setInputValue(`${id}_intake`, shinyData); // Trigger the calculation and send intakes
+            Shiny.setInputValue(`${id}_intake`, { intakes }); // Trigger the calculation and send intakes
             onComplete(); // Notify parent to show LoadingScreen
         }
     };

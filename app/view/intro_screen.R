@@ -1,6 +1,6 @@
 box::use(
   shiny.destroy[destroyModule, makeModuleServerDestroyable, makeModuleUIDestroyable],
-  shiny[moduleServer, NS, observeEvent, tagList],
+  shiny[moduleServer, NS, tagList, observeEvent],
 )
 box::use(
   app/view/react[intro_screen_page], # Import the component.
@@ -25,13 +25,13 @@ ui <- makeModuleUIDestroyable(
           smoker = TRUE,
           intakes = list(
             list(
-              type = "Coffee Type 1",
-              time = "11:11",
+              type = "Americano",
+              time = "08:00",
               selected = FALSE
             ),
             list(
-              type = "Coffee Type 2",
-              time = "12:12",
+              type = "Espresso",
+              time = "10:00",
               selected = TRUE
             )
           )
@@ -50,14 +50,14 @@ server <- makeModuleServerDestroyable(
       # Observe User Data changes
       observeEvent(input$stepper_userdata, {
         app_data$user_data <- input$stepper_userdata
-        print(input$stepper_userdata) #! dev
+        print(app_data$user_data) #! dev
       })
 
       # Observe Intake Data changes
       observeEvent(input$stepper_intake, {
-        app_data$intake_data <- input$stepper_intake
+        app_data$intake_data <- input$stepper_intake$intakes
         app_data$destroy_intro_screen <- TRUE
-        print(input$stepper_intake) #! dev
+        print(app_data$intake_data) #! dev
       })
 
       # Remove loader when calcularion finished

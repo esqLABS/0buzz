@@ -1,13 +1,15 @@
 box::use(
   bslib[page],
-  shiny[moduleServer, NS, observeEvent, reactiveValues],
+  shiny[moduleServer, NS, observeEvent, reactiveValues, req],
+  ospsuite[runSimulation]
 )
 box::use(
   # Import the component
   app/view/intro_screen,
   app/view/result_screen,
   app/logic/simulation[load_simulation],
-  app/logic/individual[set_individual]
+  app/logic/individual[set_individual],
+  app/logic/intakes[set_intakes]
 )
 
 #' @export
@@ -27,8 +29,10 @@ server <- function(id) {
     app_data <- reactiveValues(
       destroy_intro_screen = NULL,
       user_data = NULL,
-      intake_data = NULL
+      intake_data = NULL,
+      simulation_results = NULL
     )
+
 
     simulation <- load_simulation()
 
@@ -40,20 +44,20 @@ server <- function(id) {
     })
 
     # When user modifies caffeine intakes, update the simulation
-    # observeEvent(app_data$user_data$intakes,{
-    #   set_intakes(simulation, app_data$user_data$intakes)
-    # })
-
-    observeEvent(app_data$user_data, {
-      # Indicate calculation start
-      message("Starting long calculation...")
+    observeEvent(app_data$intake_data, {
+      set_intakes(simulation, app_data$intake_data)
     })
 
-    observeEvent(app_data$intake_data, {
-      # Imitate a long calculation
-      Sys.sleep(7)  # 7-second delay to imitate processing
-      # Update status after calculation completes
-      message("User data received. Destroying intro screen.")
+    observeEvent(c(app_data$user_data, app_data$intake_data), {
+      req(app_data$user_data)
+      req(app_data$intake_data)
+      # Indicate calculation start
+      message("Running simulation...")
+      app_data$simulation_results <- ospsuite:::runSimulation(simulation)
+    })
+
+    observeEvent(app_data$simulation_results, {
+      message("Simulation result received. Destroying intro screen.")
       app_data$destroy_intro_screen <- TRUE
       result_screen$server("result_screen")
     })

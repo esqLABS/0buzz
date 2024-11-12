@@ -16,14 +16,14 @@ set_individual <- function(simulation, user_data) {
   )
 
   # Set CYP1A2 concentration to reflect metabolism and Smoker status
-  CYP1A2_ref_conc <- ospsuite::getParameter("CYP1A2|Reference concentration", sim)$value # default is 1.8
+  CYP1A2_ref_conc <- ospsuite::getParameter("CYP1A2|Reference concentration", simulation)$value # default is 1.8
 
   # Metabolism level
   metabolism_factor <- case_match(
     user_data$metabolism,
-    "slow" ~ 0.2,
+    "low" ~ 0.2,
     "normal" ~ 1,
-    "fast" ~ 5
+    "high" ~ 5
   )
 
   # Smoker status
