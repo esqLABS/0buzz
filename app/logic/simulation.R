@@ -6,5 +6,7 @@ box::use(
 
 load_simulation <- function(){
   message("Initializing Simulation")
-  return(ospsuite::loadSimulation("app/logic/coffee-sim.pkml"))
+  simulation <- ospsuite::loadSimulation("app/logic/coffee-sim.pkml")
+  ospsuite::setOutputInterval(simulation, 0, 24*60-1, resolution = 2)
+  return(simulation)
 }
