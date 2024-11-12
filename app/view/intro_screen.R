@@ -25,13 +25,13 @@ ui <- makeModuleUIDestroyable(
           smoker = TRUE,
           intakes = list(
             list(
-              type = "Coffee Type 1",
-              time = "11:11",
+              type = "Americano",
+              time = "08:00",
               selected = FALSE
             ),
             list(
-              type = "Coffee Type 2",
-              time = "12:12",
+              type = "Espresso",
+              time = "10:00",
               selected = TRUE
             )
           )
