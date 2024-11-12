@@ -54,6 +54,7 @@ server <- function(id) {
       message("Running simulation...")
       # ospsuite:::runSimulation(simulation)
       Sys.sleep(2)
+
       message("User data received. Destroying intro screen.")
       app_data$destroy_intro_screen <- TRUE
       result_screen$server("result_screen")
