@@ -12,7 +12,7 @@ ui <- makeModuleUIDestroyable(
     ns <- NS(id)
     tagList(
       intro_screen_page(
-        id = ns("intro"),
+        id = ns("stepper"),
         ethinicity_options = c("Option 1", "Option 2", "Option 3"),
         metabolism_options = c("low", "normal", "high"),
         init_shiny_data = list(
@@ -47,11 +47,20 @@ server <- makeModuleServerDestroyable(
     moduleServer(id, function(input, output, session) {
       message("Server started - modal")
 
-      observeEvent(input$intro, {
-        app_data$user_data <- input$intro
-        print(input$intro)
+      # Observe User Data changes
+      observeEvent(input$stepper_userdata, {
+        app_data$user_data <- input$stepper_userdata
+        print(input$stepper_userdata) #! dev
       })
 
+      # Observe Intake Data changes
+      observeEvent(input$stepper_intake, {
+        app_data$intake_data <- input$stepper_intake
+        app_data$destroy_intro_screen <- TRUE
+        print(input$stepper_intake) #! dev
+      })
+
+      # Remove loader when calcularion finished
       observeEvent(app_data$destroy_intro_screen, {
         destroyModule()
       })

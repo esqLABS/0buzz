@@ -12,6 +12,12 @@
   border: 0.15rem solid #e0e0e0;
 }
 
+.numeric-slider input::-webkit-slider-runnable-track {
+    height: 10px;
+    background: repeating-linear-gradient(to right, #e0e0e0, #e0e0e0 1px, transparent 1px, transparent 10%);
+    border-radius: 5px;
+}
+
 .slider {
   -webkit-appearance: none;
   width: 100%;
@@ -33,6 +39,8 @@
 }
 
 .slider-value {
-  font-size: 16px;
-  margin-right: 1rem;
+  font-size: 0.75rem;
+  width: 5rem;
+  font-weight: 900;
+  color: #6f4e36;
 }

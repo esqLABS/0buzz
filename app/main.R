@@ -24,7 +24,8 @@ server <- function(id) {
     # Dummy test structure
     app_data <- reactiveValues(
       destroy_intro_screen = NULL,
-      user_data = NULL
+      user_data = NULL,
+      intake_data = NULL
     )
 
     intro_screen$server("intro_screen", app_data)
@@ -32,10 +33,11 @@ server <- function(id) {
     observeEvent(app_data$user_data, {
       # Indicate calculation start
       message("Starting long calculation...")
+    })
 
+    observeEvent(app_data$intake_data, {
       # Imitate a long calculation
       Sys.sleep(7)  # 7-second delay to imitate processing
-
       # Update status after calculation completes
       message("User data received. Destroying intro screen.")
       app_data$destroy_intro_screen <- TRUE
