@@ -1,5 +1,6 @@
 box::use(
   shiny.destroy[destroyModule, makeModuleServerDestroyable, makeModuleUIDestroyable],
+  shiny[moduleServer, NS, tagList, observeEvent],
 )
 box::use(
   app/view/react[intro_screen_page], # Import the component.
@@ -54,7 +55,7 @@ server <- makeModuleServerDestroyable(
 
       # Observe Intake Data changes
       observeEvent(input$stepper_intake, {
-        app_data$intake_data <- input$stepper_intake
+        app_data$intake_data <- input$stepper_intake$intakes
         app_data$destroy_intro_screen <- TRUE
         print(app_data$intake_data) #! dev
       })

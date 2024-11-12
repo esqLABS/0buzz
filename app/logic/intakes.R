@@ -41,6 +41,9 @@ set_intakes <- function(simulation, intakes) {
       unit = "min",
       simulation = simulation
     )
+
+    # Set the volume of water
+    # TODO
   }
 
   # Set remaining intakes to 0
@@ -54,19 +57,19 @@ set_intakes <- function(simulation, intakes) {
       simulation = simulation
     )
 
-    # ospsuite::setParameterValuesByPath(
-    #   parameterPaths = time_paths[[j]],
-    #   values = 0,
-    #   unit = "min",
-    #   simulation = simulation
-    # )
+    ospsuite::setParameterValuesByPath(
+      parameterPaths = time_paths[[j]],
+      values = 0,
+      unit = "min",
+      simulation = simulation
+    )
 
-    # ospsuite::setParameterValuesByPath(
-    #   parameterPaths = volume_paths[[j]],
-    #   values = 0,
-    #   unit = "l/kg",
-    #   simulation = simulation
-    # )
+    ospsuite::setParameterValuesByPath(
+      parameterPaths = volume_paths[[j]],
+      values = 0,
+      unit = "l/kg",
+      simulation = simulation
+    )
   }
 }
 

@@ -21,9 +21,9 @@ set_individual <- function(simulation, user_data) {
   # Metabolism level
   metabolism_factor <- case_match(
     user_data$metabolism,
-    "slow" ~ 0.2,
+    "low" ~ 0.2,
     "normal" ~ 1,
-    "fast" ~ 5
+    "high" ~ 5
   )
 
   # Smoker status

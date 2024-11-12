@@ -29,7 +29,8 @@ server <- function(id) {
     app_data <- reactiveValues(
       destroy_intro_screen = NULL,
       user_data = NULL,
-      intake_data = NULL
+      intake_data = NULL,
+      simulation_results = NULL
     )
 
 
@@ -43,19 +44,20 @@ server <- function(id) {
     })
 
     # When user modifies caffeine intakes, update the simulation
-    observeEvent(app_data$intakes, {
-      set_intakes(simulation, app_data$intakes)
+    observeEvent(app_data$intake_data, {
+      set_intakes(simulation, app_data$intake_data)
     })
 
-    observeEvent(c(app_data$user_data, app_data$intakes), {
+    observeEvent(c(app_data$user_data, app_data$intake_data), {
       req(app_data$user_data)
-      req(app_data$intakes)
+      req(app_data$intake_data)
       # Indicate calculation start
       message("Running simulation...")
-      # ospsuite:::runSimulation(simulation)
-      Sys.sleep(2)
+      app_data$simulation_results <- ospsuite:::runSimulation(simulation)
+    })
 
-      message("User data received. Destroying intro screen.")
+    observeEvent(app_data$simulation_results, {
+      message("Simulation result received. Destroying intro screen.")
       app_data$destroy_intro_screen <- TRUE
       result_screen$server("result_screen")
     })
