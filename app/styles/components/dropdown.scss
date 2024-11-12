@@ -6,16 +6,17 @@
 }
 
 .dropdown-header {
-  padding: 12px;
+  padding: 0.45rem 1rem;
   font-size: 16px;
-  background-color: #ffffff;
+  background-color: #fff;
   color: #6f4e36;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-radius: 3rem;
-  border: 0.17rem solid;
+  width: 100%;
+  border: 0.15rem solid;
 }
 
 .dropdown-list {
@@ -35,12 +36,24 @@
 .list-item {
   padding: 10px;
   font-size: 16px;
-  color: #333;
+  color: #321313;
   cursor: pointer;
 }
 
 .list-item:hover {
   background-color: #f1f1f1;
+}
+
+.list-item-coffee-type-description {
+  font-size: 0.6rem;
+  font-style: italic;
+  font-weight: 600;
+  color: #6f4e36bf;
+}
+
+.list-item img {
+  height: 0.7rem;
+  margin-left: 0.25rem;
 }
 
 .arrow {

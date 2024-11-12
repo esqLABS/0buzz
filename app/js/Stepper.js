@@ -6,7 +6,7 @@ const CategoricalSlider = require('./components/CategoricalSlider.js').default;
 const SmokerCheckbox = require('./components/SmokerCheckbox.js').default;
 const Intake = require('./components/Intake.js').default;
 
-export default function Stepper({id, initShinyData, ethinicityOptions, metabolismOptions, onComplete }) {
+export default function Stepper({id, initShinyData, ethinicityOptions, metabolismOptions, coffeeTypeOptions, onComplete, unitOptions }) {
   const [step, setStep] = useState(1);
 
   console.log("initShinyData: ", initShinyData);
@@ -18,6 +18,7 @@ export default function Stepper({id, initShinyData, ethinicityOptions, metabolis
         height: initShinyData.height,
         weight: initShinyData.weight,
         // intakes: initShinyData.intakes,
+        unit: initShinyData.unit,
         metabolism: initShinyData.metabolism,
         smoker: initShinyData.smoker
     });
@@ -31,13 +32,19 @@ export default function Stepper({id, initShinyData, ethinicityOptions, metabolis
     };
 
     const handleAddIntake = () => {
-        const newIntakes = [...intakes, { type: '', time: '', selected: false }];
+        const newIntakes = [...intakes, { type: {}, time: '', selected: true }];
         setIntakes(newIntakes);
         setShinyData(prevData => ({
             ...prevData,
             intakes: newIntakes
         }));
     };
+
+    const handleRemoveIntake = (indexToRemove) => {
+      const updatedIntakes = intakes.filter((_, index) => index !== indexToRemove);
+      setIntakes(updatedIntakes); // or however you're managing state
+    };
+
 
     const handleSliderChange = (identifier, value) => {
         setShinyData(prevData => ({
@@ -68,7 +75,7 @@ export default function Stepper({id, initShinyData, ethinicityOptions, metabolis
       <div className="step-content">
         {step === 1 && (
           <div className="step">
-            <p>Step 1 of 2</p>
+            <p><span className="current-step">1</span>/2 <span className="step-title">Enter your data</span></p>
             <Dropdown initialValue={initShinyData.ethnicity}
                       dropdownOptions={ethinicityOptions}
                       onChange={
@@ -88,6 +95,8 @@ export default function Stepper({id, initShinyData, ethinicityOptions, metabolis
               onChange={
                 (value) => handleSliderChange('age', value)
               }
+              unit="imperial"
+              measure=""
             />
             <NumericSlider
               min={1.00} max={2.20} step={0.01}
@@ -95,12 +104,16 @@ export default function Stepper({id, initShinyData, ethinicityOptions, metabolis
               onChange={
                 (value) => handleSliderChange('height', value)
               }
+              unit="imperial"
+              measure="cm"
             />
             <NumericSlider
               min={10} max={210} step={1} initialValue={initShinyData.weight}
               onChange={
                 (value) => handleSliderChange('weight', value)
               }
+              unit="imperial"
+              measure="kg"
             />
             <CategoricalSlider
               options={metabolismOptions}
@@ -115,18 +128,27 @@ export default function Stepper({id, initShinyData, ethinicityOptions, metabolis
                 (value) => handleSliderChange('smoker', value)
               }
             />
+            <CategoricalSlider
+              options={unitOptions}
+              initialValue={initShinyData.unit}
+              onChange={
+                (value) => handleSliderChange('unit', value)
+              }
+            />
             <button onClick={handleNextStep}>Next</button>
           </div>
         )}
         {step === 2 && (
           <div className="step">
-            <p>Step 2 of 2</p>
+            <p onClick={() => setStep(1)}>1/<span className="current-step">2</span><span className="step-title">Enter intake data</span></p>
             <Intake
               intakes={intakes}
               onIntakeChange={handleIntakeChange}
               onAddIntake={handleAddIntake}
+              onRemoveIntake={handleRemoveIntake}
+              coffeeTypeOptions={coffeeTypeOptions}
+              startCalc={handleNextStep}
             />
-            <button onClick={handleNextStep}>Calculate</button>
           </div>
         )}
       </div>

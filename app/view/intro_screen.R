@@ -15,6 +15,22 @@ ui <- makeModuleUIDestroyable(
         id = ns("stepper"),
         ethinicity_options = c("Option 1", "Option 2", "Option 3"),
         metabolism_options = c("low", "normal", "high"),
+        coffee_type_options = list(
+          `espresso` = list(
+            water = 100,
+            caffein = 10
+          ),
+          `latte` = list(
+            water = 200,
+            caffein = 20
+          ),
+          `cappuccino` = list(
+            water = 300,
+            caffein = 30
+          )
+        ),
+        unit="metric",
+        unit_options = c("metric", "imperial"),
         init_shiny_data = list(
           ethnicity = "Option 1",
           gender = "male", # Options: 'male', 'female'
@@ -25,12 +41,22 @@ ui <- makeModuleUIDestroyable(
           smoker = TRUE,
           intakes = list(
             list(
-              type = "Coffee Type 1",
+              type = list(
+                `espresso` = list(
+                  water = 100,
+                  caffein = 10
+                )
+              ),
               time = "11:11",
               selected = FALSE
             ),
             list(
-              type = "Coffee Type 2",
+              type = list(
+                `late` = list(
+                  water = 100,
+                  caffein = 10
+                )
+              ),
               time = "12:12",
               selected = TRUE
             )
