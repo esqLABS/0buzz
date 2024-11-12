@@ -17,7 +17,7 @@ export default function Stepper({id, initShinyData, ethinicityOptions, metabolis
         age: initShinyData.age,
         height: initShinyData.height,
         weight: initShinyData.weight,
-        intakes: initShinyData.intakes,
+        // intakes: initShinyData.intakes,
         metabolism: initShinyData.metabolism,
         smoker: initShinyData.smoker
     });
@@ -31,7 +31,7 @@ export default function Stepper({id, initShinyData, ethinicityOptions, metabolis
     };
 
     const handleAddIntake = () => {
-        const newIntakes = [...intakes, { type: '', time: '', selected: false }];
+        const newIntakes = [...intakes, { type: '', time: '', selected: true }];
         setIntakes(newIntakes);
         setShinyData(prevData => ({
             ...prevData,
@@ -50,8 +50,9 @@ export default function Stepper({id, initShinyData, ethinicityOptions, metabolis
     const handleNextStep = () => {
         if (step < 2) {
             setStep(step + 1); // Move to the next step
+            Shiny.setInputValue(`${id}_userdata`, shinyData); // Send user data
         } else {
-            Shiny.setInputValue(`${id}`, shinyData); // Trigger the calculation
+            Shiny.setInputValue(`${id}_intake`, shinyData); // Trigger the calculation and send intakes
             onComplete(); // Notify parent to show LoadingScreen
         }
     };

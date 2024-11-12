@@ -1,6 +1,5 @@
 box::use(
   shiny.destroy[destroyModule, makeModuleServerDestroyable, makeModuleUIDestroyable],
-  shiny[moduleServer, NS, observeEvent, tagList],
 )
 box::use(
   app/view/react[intro_screen_page], # Import the component.
@@ -12,7 +11,7 @@ ui <- makeModuleUIDestroyable(
     ns <- NS(id)
     tagList(
       intro_screen_page(
-        id = ns("intro"),
+        id = ns("stepper"),
         ethinicity_options = c("European", "White American", "Black American","Mexican American", "Asian", "Japanese"),
         metabolism_options = c("low", "normal", "high"),
         init_shiny_data = list(
@@ -47,11 +46,20 @@ server <- makeModuleServerDestroyable(
     moduleServer(id, function(input, output, session) {
       message("Server started - modal")
 
-      observeEvent(input$intro, {
-        app_data$user_data <- input$intro
-        print(input$intro)
+      # Observe User Data changes
+      observeEvent(input$stepper_userdata, {
+        app_data$user_data <- input$stepper_userdata
+        print(app_data$user_data) #! dev
       })
 
+      # Observe Intake Data changes
+      observeEvent(input$stepper_intake, {
+        app_data$intake_data <- input$stepper_intake
+        app_data$destroy_intro_screen <- TRUE
+        print(app_data$intake_data) #! dev
+      })
+
+      # Remove loader when calcularion finished
       observeEvent(app_data$destroy_intro_screen, {
         destroyModule()
       })

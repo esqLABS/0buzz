@@ -29,9 +29,9 @@ server <- function(id) {
     app_data <- reactiveValues(
       destroy_intro_screen = NULL,
       user_data = NULL,
-      characteristics_ready = FALSE,
-      intakes_ready = FALSE
-      )
+      intake_data = NULL
+    )
+
 
     simulation <- load_simulation()
 
@@ -39,32 +39,21 @@ server <- function(id) {
 
     # When user characteristics are received, apply them to the simulation
     observeEvent(app_data$user_data, {
-      app_data$characteristics_ready = FALSE
       set_individual(simulation, app_data$user_data)
-      app_data$characteristics_ready = TRUE
     })
 
     # When user modifies caffeine intakes, update the simulation
-    # observeEvent(app_data$user_data$intakes,{
-    observeEvent(app_data$user_data$intakes,{
-      app_data$intakes_ready = FALSE
-    #   set_intakes(simulation, app_data$user_data$intakes)
-      set_intakes(simulation, app_data$user_data$intakes)
-      app_data$intakes_ready = TRUE
+    observeEvent(app_data$intakes, {
+      set_intakes(simulation, app_data$intakes)
     })
 
-    observeEvent(c(app_data$characteristics_ready, app_data$intakes_ready), {
-
-      req(app_data$characteristics_ready)
-      req(app_data$intakes_ready)
+    observeEvent(c(app_data$user_data, app_data$intakes), {
+      req(app_data$user_data)
+      req(app_data$intakes)
       # Indicate calculation start
-      message("Starting long calculation...")
-
-      # Imitate a long calculation
+      message("Running simulation...")
       # ospsuite:::runSimulation(simulation)
       Sys.sleep(2)
-
-      # Update status after calculation completes
       message("User data received. Destroying intro screen.")
       app_data$destroy_intro_screen <- TRUE
       result_screen$server("result_screen")
