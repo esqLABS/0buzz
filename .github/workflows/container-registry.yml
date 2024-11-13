@@ -2,8 +2,8 @@ name: Azure Container Registry
 
 on:
   push:
-    branches:
-      main
+    # branches:
+    #   main
 
 env:
   IMAGE_NAME: caffein-app
