@@ -19,7 +19,7 @@ export default function Dropdown({ initialValue, dropdownOptions, onChange }) {
         <div className="dropdown-container">
             <div className="dropdown-header" onClick={toggleDropdown}>
                 {selectedOption || 'Select an option'}
-                <span className={`arrow ${isOpen ? 'open' : ''}`}>▼</span>
+                <span className={`arrow ${isOpen ? 'open' : ''}`}>↓</span>
             </div>
             {isOpen && (
                 <ul className="dropdown-list">

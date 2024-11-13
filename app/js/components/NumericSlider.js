@@ -1,7 +1,7 @@
 const { useState } = React;
 const { FiInfo } = require('react-icons/fi');
 
-export default function NumericSlider({ min, max, initialValue, step, onChange }) {
+export default function NumericSlider({ min, max, initialValue, step, onChange, unit, measure }) {
     const [value, setValue] = useState(initialValue);
 
     const handleSliderChange = (event) => {
@@ -31,7 +31,7 @@ export default function NumericSlider({ min, max, initialValue, step, onChange }
                 onChange={handleSliderChange}
                 className="slider"
             />
-            <div className="slider-value">{value.toFixed(decimalPlaces)}</div>
+            <div className="slider-value">{value.toFixed(decimalPlaces)}<sub>{measure}</sub></div>
         </div>
     );
 }

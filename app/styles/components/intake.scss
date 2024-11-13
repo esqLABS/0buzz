@@ -1,11 +1,12 @@
 .intake-container {
-  margin: 20px;
+  width: 100%;
 }
 
 .intake-record {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+  width: 100%;
 }
 
 .intake-record input[type="text"],
@@ -20,6 +21,50 @@
 .intake-record label {
   margin-left: 10px;
   font-size: 14px;
+}
+
+.intake-record-selected {
+  width: 5% !important;
+}
+.intake-record-dropdown {
+  width: 65% !important;
+  margin: 0rem 0.3rem;
+}
+
+.intake-record-time {
+  width: 25% !important;
+}
+
+.intake-record-remove {
+  width: 5% !important;
+}
+
+.intake-record-remove img {
+  height: 1rem;
+}
+
+.intake-record-dropdown .dropdown-header {
+    padding: 0.25rem 1rem;
+}
+
+.intake-button-group {
+    display: flex;
+    gap: 0.25rem;
+    margin-top: 1.75rem;
+}
+
+.add-intake-btn {
+  background: #ffffff !important;
+  color: #321313 !important;
+  font-weight: 500 !important;
+  border: 0.1rem solid #321313 !important;
+}
+
+.intake-record input[type=time] {
+    border-radius: 3rem;
+    border: 0.15rem solid #6f4e36;
+    color: #6f4e36;
+    padding: 0.25rem 0.2rem;
 }
 
 button {

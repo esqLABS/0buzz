@@ -13,6 +13,7 @@
   position: relative;
   color: #321313;
   font-weight: 500;
+  font-size: 0.85rem;
 }
 
 .custom-checkbox input {
@@ -48,8 +49,9 @@
 }
 
 .icon-wrapper {
-  position: relative;
-  cursor: pointer;
+    position: relative;
+    cursor: pointer;
+    top: -0.55rem;
 }
 
 .icon {

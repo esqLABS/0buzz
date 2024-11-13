@@ -3,7 +3,7 @@ const AppLogo = require('./AppLogo.js').default;
 const Stepper = require('./Stepper.js').default;
 const LoadingScreen = require('./LoadingScreen.js').default;
 
-export default function IntroScreen({ id, init_shiny_data, ethinicity_options, metabolism_options }) {
+export default function IntroScreen({ id, init_shiny_data, ethinicity_options, metabolism_options, coffee_type_options, unit_options }) {
   const [showLoading, setShowLoading] = useState(false);
   const [showStepper, setShowStepper] = useState(false);
 
@@ -27,6 +27,8 @@ export default function IntroScreen({ id, init_shiny_data, ethinicity_options, m
                                    onComplete={handleStepperComplete}
                                    ethinicityOptions={ethinicity_options}
                                    metabolismOptions={metabolism_options}
+                                   coffeeTypeOptions={coffee_type_options}
+                                   unitOptions={unit_options}
                           />}
         </div>
       )}
