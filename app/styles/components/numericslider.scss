@@ -27,6 +27,11 @@
   outline: none;
 }
 
+.slider-value sub {
+  font-style: italic;
+  padding-left: 0.1rem;
+}
+
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;

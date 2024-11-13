@@ -1,6 +1,7 @@
 const { useState } = React;
+const DropdownCoffeeType = require('./DropdownCoffeeType.js').default;
 
-export default function Intake({ intakes, onIntakeChange, onAddIntake }) {
+export default function Intake({ intakes, onIntakeChange, onAddIntake, onRemoveIntake, coffeeTypeOptions, startCalc }) {
     const handleChange = (index, event) => {
         const { name, value, type, checked } = event.target;
         const updatedIntakes = [...intakes];
@@ -12,36 +13,51 @@ export default function Intake({ intakes, onIntakeChange, onAddIntake }) {
         onIntakeChange(updatedIntakes);
     };
 
+    const handleCoffeeTypeChange = (index, value) => {
+      console.log(value);
+      console.log(index);
+      console.log(intakes);
+      const updatedIntakes = [...intakes];
+      updatedIntakes[index].type = value;
+      onIntakeChange(updatedIntakes);
+    }
+
     return (
         <div className="intake-container">
-            <h2>Intake Records</h2>
             {intakes.map((intake, index) => (
                 <div className="intake-record" key={index}>
                     <input
-                        type="text"
-                        name="type"
-                        placeholder="Type"
-                        value={intake.type}
+                        className="intake-record-selected"
+                        type="checkbox"
+                        name="selected"
+                        checked={intake.selected}
                         onChange={(event) => handleChange(index, event)}
+                    />
+                    <DropdownCoffeeType
+                      initialValue={intake.type}
+                      dropdownOptions={coffeeTypeOptions}
+                      onChange={
+                        (value) => handleCoffeeTypeChange(index, value)
+                      }
+                      className="intake-record-dropdown"
                     />
                     <input
                         type="time"
                         name="time"
                         value={intake.time}
                         onChange={(event) => handleChange(index, event)}
+                        className="intake-record-time"
                     />
-                    <label>
-                        <input
-                            type="checkbox"
-                            name="selected"
-                            checked={intake.selected}
-                            onChange={(event) => handleChange(index, event)}
-                        />
-                        Selected
-                    </label>
+                    <span className="intake-record-remove" onClick={() => onRemoveIntake(index)}>
+                      <img src="static/icons/delete.png"/>
+                    </span>
                 </div>
             ))}
-            <button onClick={onAddIntake}>Add More Intake Record</button>
+            <div class="intake-button-group">
+              <button className="add-intake-btn" onClick={onAddIntake}>Add Intake</button>
+              <button onClick={startCalc}>Calculate</button>
+            </div>
         </div>
     );
 }
+

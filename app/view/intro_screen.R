@@ -15,6 +15,22 @@ ui <- makeModuleUIDestroyable(
         id = ns("stepper"),
         ethinicity_options = c("European", "White American", "Black American","Mexican American", "Asian", "Japanese"),
         metabolism_options = c("low", "normal", "high"),
+        coffee_type_options = list(
+          `espresso` = list(
+            water = 100,
+            caffein = 10
+          ),
+          `latte` = list(
+            water = 200,
+            caffein = 20
+          ),
+          `cappuccino` = list(
+            water = 300,
+            caffein = 30
+          )
+        ),
+        unit="metric",
+        unit_options = c("metric", "imperial"),
         init_shiny_data = list(
           ethnicity = "European",
           gender = "male", # Options: 'male', 'female'
