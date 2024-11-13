@@ -18,4 +18,4 @@ RUN R -e "options(renv.config.repos.override = 'https://packagemanager.posit.co/
 
 EXPOSE 3838
 
-CMD ["Rscript", "/app/app.R"]
+CMD ["R","-e", "shiny::runApp('./app.R', host='0.0.0.0', port = 3838)"]
