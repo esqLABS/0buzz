@@ -3,7 +3,7 @@ box::use(
   shiny[moduleServer, NS, tagList, observeEvent],
 )
 box::use(
-  app/logic/constants[COFFEE_TYPES],
+  app/logic/constants[COFFEE_TYPES, POPULATIONS],
   app/view/react[intro_screen_page], # Import the component.
 )
 
@@ -14,7 +14,7 @@ ui <- makeModuleUIDestroyable(
     tagList(
       intro_screen_page(
         id = ns("stepper"),
-        ethinicity_options = c("European", "White American", "Black American","Mexican American", "Asian", "Japanese"),
+        ethinicity_options = POPULATIONS,
         metabolism_options = c("low", "normal", "high"),
         coffee_type_options = COFFEE_TYPES,
         unit="metric",

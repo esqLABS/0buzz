@@ -4,6 +4,10 @@ box::use(
   dplyr[case_match]
 )
 
+box::use(
+  app/logic/constants[POPULATIONS, GENDERS],
+)
+
 set_individual <- function(simulation, user_data) {
   message("Applying individual characteristics to the simulation")
   # Create individual
@@ -51,7 +55,7 @@ create_individual <- function(user_data) {
 }
 
 translate_population <- function(population) {
-  rlang::arg_match(population, c("European", "White American", "Black American", "Mexican American", "Asian", "Japanese"))
+  rlang::arg_match(population, POPULATIONS)
   case_match(
     population,
     "European" ~ ospsuite::HumanPopulation$European_ICRP_2002,
@@ -64,7 +68,7 @@ translate_population <- function(population) {
 }
 
 translate_gender <- function(gender) {
-  rlang::arg_match(gender, c("male", "female"))
+  rlang::arg_match(gender, GENDERS)
   case_match(
     gender,
     "male" ~ ospsuite::Gender$Male,
