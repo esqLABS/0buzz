@@ -28,3 +28,9 @@ COFFEE_TYPES <- list(
   `Iced` = list(caffeine = 77, water = 150),
   `Decaf` = list(caffeine = 2, water = 240)
 )
+
+#' @export
+METABOLISM = c("low", "normal", "high")
+
+#' @export
+UNITS <- c("metric", "imperial")

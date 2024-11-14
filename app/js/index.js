@@ -1,3 +1,5 @@
 import IntroScreen from './IntroScreen';
+import EditUserdata from './EditUserdata';
+import EditIntakeData from './EditIntakeData';
 
-Rhino.registerReactComponents({ IntroScreen });
+Rhino.registerReactComponents({ IntroScreen, EditUserdata, EditIntakeData });

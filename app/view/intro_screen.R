@@ -3,7 +3,7 @@ box::use(
   shiny[moduleServer, NS, tagList, observeEvent],
 )
 box::use(
-  app/logic/constants[COFFEE_TYPES, POPULATIONS],
+  app/logic/constants[COFFEE_TYPES, POPULATIONS, METABOLISM, UNITS],
   app/view/react[intro_screen_page], # Import the component.
 )
 
@@ -15,16 +15,16 @@ ui <- makeModuleUIDestroyable(
       intro_screen_page(
         id = ns("stepper"),
         ethinicity_options = POPULATIONS,
-        metabolism_options = c("low", "normal", "high"),
+        metabolism_options = METABOLISM,
         coffee_type_options = COFFEE_TYPES,
-        unit = "metric",
-        unit_options = c("metric", "imperial"),
+        unit_options = UNITS,
         init_shiny_data = list(
           ethnicity = "European",
           gender = "male", # Options: 'male', 'female'
           age = 25,
           height = 1.70,
           weight = 70,
+          unit = "metric", # Options: 'metric', 'imperial'
           metabolism = "high", # Options: 'low', 'normal', 'high'
           smoker = TRUE,
           unit = "metric",
@@ -66,12 +66,12 @@ server <- makeModuleServerDestroyable(
       # Observe Intake Data changes
       observeEvent(input$stepper_intake, {
         app_data$intake_data <- input$stepper_intake$intakes
-        app_data$destroy_intro_screen <- TRUE
         print(app_data$intake_data) # ! dev
       })
 
       # Remove loader when calcularion finished
       observeEvent(app_data$destroy_intro_screen, {
+        app_data$destroy_intro_screen <- NULL
         destroyModule()
       })
     })

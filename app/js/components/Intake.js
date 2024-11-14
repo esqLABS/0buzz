@@ -1,7 +1,10 @@
 const { useState } = React;
 const DropdownCoffeeType = require('./DropdownCoffeeType.js').default;
 
-export default function Intake({ intakes, onIntakeChange, onAddIntake, onRemoveIntake, coffeeTypeOptions, startCalc }) {
+export default function Intake({ intakes, onIntakeChange, onAddIntake, onRemoveIntake, coffeeTypeOptions, startCalc, showInitIntake, showEditIntake }) {
+
+  console.log("Intake window", intakes)
+
     const handleChange = (index, event) => {
         const { name, value, type, checked } = event.target;
         const updatedIntakes = [...intakes];
@@ -14,9 +17,6 @@ export default function Intake({ intakes, onIntakeChange, onAddIntake, onRemoveI
     };
 
     const handleCoffeeTypeChange = (index, value) => {
-      console.log(value);
-      console.log(index);
-      console.log(intakes);
       const updatedIntakes = [...intakes];
       updatedIntakes[index].type = value;
       onIntakeChange(updatedIntakes);
@@ -26,13 +26,16 @@ export default function Intake({ intakes, onIntakeChange, onAddIntake, onRemoveI
         <div className="intake-container">
             {intakes.map((intake, index) => (
                 <div className="intake-record" key={index}>
-                    <input
-                        className="intake-record-selected"
-                        type="checkbox"
-                        name="selected"
-                        checked={intake.selected}
-                        onChange={(event) => handleChange(index, event)}
-                    />
+                    <label className="custom-checkbox">
+                      <input
+                          className="intake-record-selected"
+                          type="checkbox"
+                          name="selected"
+                          checked={intake.selected}
+                          onChange={(event) => handleChange(index, event)}
+                      />
+                      <span className="checkbox-indicator"></span>
+                    </label>
                     <DropdownCoffeeType
                       initialValue={intake.type}
                       dropdownOptions={coffeeTypeOptions}
@@ -53,10 +56,27 @@ export default function Intake({ intakes, onIntakeChange, onAddIntake, onRemoveI
                     </span>
                 </div>
             ))}
-            <div class="intake-button-group">
-              <button className="add-intake-btn" onClick={onAddIntake}>Add Intake</button>
-              <button onClick={startCalc}>Calculate</button>
-            </div>
+            {showInitIntake &&
+              (
+                <div class="intake-button-group">
+                  <button className="add-intake-btn" onClick={onAddIntake}>Add Intake</button>
+                  <button onClick={startCalc}>Submit</button>
+                </div>
+              )
+            }
+
+            {showEditIntake &&
+              (
+                <div className="intake-edit-container">
+                  <hr/>
+                  <div class="intake-button-group-edit">
+                    <button className="edit-add-intake-btn" onClick={onAddIntake}>Add Intake</button>
+                    <p>How much caffeine <br/> have you had today?</p>
+                  </div>
+                </div>
+              )
+            }
+
         </div>
     );
 }

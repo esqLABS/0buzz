@@ -9,13 +9,13 @@ export default function AppLogo({ onAnimationComplete }) {
     const moveTimer = setTimeout(() => {
       setMoveToTop(true);
       // onAnimationComplete(); // Notify parent that animation is complete
-    }, 4000);
+    }, 2000);
 
     // Set to final state after the transition (1 second after moveToTop)
     const finalTimer = setTimeout(() => {
       setFinalState(true);
       onAnimationComplete();
-    }, 4750); // Delayed 1 second after moveTimer
+    }, 2750); // Delayed 1 second after moveTimer
 
     return () => {
       clearTimeout(moveTimer);

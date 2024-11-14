@@ -10,5 +10,114 @@
 @import "components/numericslider";
 @import "components/smokercheckbox";
 
+.app-title {
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem 0rem 1rem 0rem;
+}
 
+.app-title img {
+  height: 3rem;
+}
 
+.app-title h3 {
+  font-size: 2rem;
+  color: #6f4e37;
+  font-family: "Courier New", monospace;
+  font-weight: bold;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.bslib-full-screen-enter {
+  opacity: 1 !important;
+  z-index: 1050 !important;
+}
+
+.bslib-full-screen-enter:hover {
+  background-color: #ffffff !important;
+}
+
+.user-input-title {
+    font-weight: 500 !important;
+    color: #e0e0e0 !important;
+    margin-bottom: 0.5rem !important;
+    margin-top: 1rem !important;
+    font-size: 0.95rem !important;
+}
+
+.accordion-button:not(.collapsed)::after {
+    filter: invert(1);
+}
+
+.accordion-button::after {
+    filter: invert(31%) sepia(20%) saturate(280%) hue-rotate(346deg) brightness(92%) contrast(85%);
+}
+
+.modal-container-edit-data .accordion .accordion-item {
+    border: 0px !important;
+}
+
+.modal-container-edit-data .accordion .accordion-item .accordion-header {
+    background: #785f5a;
+    color: #f6eae0;
+    border-radius: 3rem;
+}
+
+.modal-container-edit-data .accordion .accordion-item .accordion-header .accordion-button.collapsed {
+    color: #806560;
+    border: 0.2rem solid #806560;
+    border-radius: 3rem;
+}
+
+.modal-container-edit-data .accordion .accordion-item .accordion-header .accordion-button {
+    text-transform: uppercase;
+    font-weight: 600;
+    border: 0.2rem solid #785f5a;
+    border-radius: 3rem;
+}
+
+.modal-container-edit-data .accordion .accordion-item .accordion-header .accordion-button:hover {
+    background: #785f5a;
+    color: #f6eae0;
+}
+
+.modal-window-btn-group-footer button{
+  border-radius: 3rem;
+  border: 0.1rem solid #785f5a;
+}
+
+.modal-window-btn-group-footer .cancel-btn,
+.modal-window-btn-group-footer .cancel-btn:active,
+.modal-window-btn-group-footer .cancel-btn:hover {
+  background: #ffffff;
+  color: #806560;
+  border-color: #806560;
+}
+
+.modal-window-btn-group-footer .run-analysis-btn,
+.modal-window-btn-group-footer .run-analysis-btn:active,
+.modal-window-btn-group-footer .run-analysis-btn:hover {
+  background: #806560;
+  color: #f6eae0;
+  border-color: #f6eae0;
+}
+
+.modal-window-btn-group-footer .run-analysis-btn:disabled {
+  opacity: 0.7 !important;
+}
+
+.modal-title {
+  color: #2f1b0a;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.accordion-body {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.modal-body, .modal-footer {
+  padding: 1rem;
+}

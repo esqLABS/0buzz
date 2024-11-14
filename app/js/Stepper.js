@@ -75,18 +75,21 @@ export default function Stepper({id, initShinyData, ethinicityOptions, metabolis
       <div className="step-content">
         {step === 1 && (
           <div className="step">
-            <p><span className="current-step">1</span>/2 <span className="step-title">Enter your data</span></p>
+            <p><span className="current-step">1</span>/2 <span className="step-title">Health Factors</span></p>
+            <p className="step-user-input-title">Ethinicity:</p>
             <Dropdown initialValue={initShinyData.ethnicity}
                       dropdownOptions={ethinicityOptions}
                       onChange={
                         (value) => handleSliderChange('ethnicity', value)
                       }
             />
+            <p className="step-user-input-title">Gender:</p>
             <GenderSwitch initialValue={initShinyData.gender}
                           onChange={
                             (value) => handleSliderChange('gender', value)
                           }
             />
+            <p className="step-user-input-title">Age:</p>
             <NumericSlider
               min={5}
               max={105}
@@ -98,23 +101,31 @@ export default function Stepper({id, initShinyData, ethinicityOptions, metabolis
               unit="imperial"
               measure=""
             />
+            <p className="step-user-input-title">Height:</p>
             <NumericSlider
-              min={1.00} max={2.20} step={0.01}
+              min={shinyData.unit.toLowerCase() == "imperial" ? 39 : 1.00}
+              max={shinyData.unit.toLowerCase() == "imperial" ? 87 : 2.20}
+              step={shinyData.unit.toLowerCase() == "imperial" ? 1 : 0.01}
               initialValue={initShinyData.height}
               onChange={
                 (value) => handleSliderChange('height', value)
               }
               unit="imperial"
-              measure="cm"
+              measure={shinyData.unit.toLowerCase() == "imperial" ? "in" : "cm"}
             />
+            <p className="step-user-input-title">Weight:</p>
             <NumericSlider
-              min={10} max={210} step={1} initialValue={initShinyData.weight}
+              min={shinyData.unit.toLowerCase() == "imperial" ? 22 : 10}
+              max={shinyData.unit.toLowerCase() == "imperial" ? 462 : 210}
+              step={shinyData.unit.toLowerCase() == "imperial" ? 10 : 1}
+              initialValue={initShinyData.weight}
               onChange={
                 (value) => handleSliderChange('weight', value)
               }
               unit="imperial"
-              measure="kg"
+              measure={shinyData.unit.toLowerCase() == "imperial" ? "lbs" : "kg"}
             />
+            <p className="step-user-input-title">Activity:</p>
             <CategoricalSlider
               options={metabolismOptions}
               initialValue={initShinyData.metabolism}
@@ -128,6 +139,7 @@ export default function Stepper({id, initShinyData, ethinicityOptions, metabolis
                 (value) => handleSliderChange('smoker', value)
               }
             />
+            <p className="step-user-input-title">Units:</p>
             <CategoricalSlider
               options={unitOptions}
               initialValue={initShinyData.unit}
@@ -140,7 +152,7 @@ export default function Stepper({id, initShinyData, ethinicityOptions, metabolis
         )}
         {step === 2 && (
           <div className="step">
-            <p onClick={() => setStep(1)}>1/<span className="current-step">2</span><span className="step-title">Enter intake data</span></p>
+            <p onClick={() => setStep(1)}>1/<span className="current-step">2</span><span className="step-title">Caffeine Intake</span></p>
             <Intake
               intakes={intakes}
               onIntakeChange={handleIntakeChange}
@@ -148,6 +160,8 @@ export default function Stepper({id, initShinyData, ethinicityOptions, metabolis
               onRemoveIntake={handleRemoveIntake}
               coffeeTypeOptions={coffeeTypeOptions}
               startCalc={handleNextStep}
+              showInitIntake={true}
+              showEditIntake={false}
             />
           </div>
         )}

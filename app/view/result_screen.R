@@ -1,49 +1,73 @@
 box::use(
-  bslib[page_fillable, layout_columns],
-  shiny[div, h1, moduleServer, NS, renderTable, renderUI, tableOutput, tagList, uiOutput, renderPlot, plotOutput, fluidRow, column],
+  bslib[page_fillable, layout_column_wrap, card, card_body],
+  shiny[div, h1, h3, img, moduleServer, NS, renderTable, renderUI, renderPlot, plotOutput, tableOutput, tagList, uiOutput, observeEvent],
+  shiny.destroy[destroyModule, makeModuleServerDestroyable, makeModuleUIDestroyable],
+  htmlwidgets[JS],
 )
 
 box::use(
   app/view/components/organ_info_tabpanel,
-  app/logic/plot[get_plot],
+  app/view/edit_modal,
+  app/logic/helpers[CREATE_SHINT_INPUT_FROM_JS],
+  app/logic/plot[get_plot]
 )
 
 #' @export
 ui <- function(id) {
-  ns <- NS(id)
-  tagList(
-    uiOutput(ns("result_screen"))
+    ns <- NS(id)
+    tagList(
+      uiOutput(ns("result_screen"))
 
-  )
+    )
 }
 
 #' @export
 server <- function(id, app_data) {
-  moduleServer(id, function(input, output, session) {
-    message("Server started - result screen")
-    organ_info_tabpanel$server("organ_info_tabpanel")
+    moduleServer(id, function(input, output, session) {
+      message("Server started - result screen")
+      organ_info_tabpanel$server("organ_info_tabpanel")
+
+      observeEvent(input$edit, {
+        message("Edit modal open")
+        edit_modal$ui(session$ns("edit"))
+        edit_modal$server("edit", app_data)
+      })
 
 
-    output$plot <- renderPlot({
-      get_plot(app_data$simulation_results)
+      output$plot <- renderPlot({
+        app_data$destroy_intro_screen <- TRUE # remove loading screen
+        get_plot(app_data$simulation_results)
+      })
+
+
+      output$result_screen <- renderUI({
+        tagList(
+          div(class = "container app-title",
+              h3(
+                "Caffeine App"
+              ),
+              img(
+                onclick = JS(CREATE_SHINT_INPUT_FROM_JS(session$ns("edit"))),
+                src = "static/icons/edit.png"
+              )
+          ),
+          layout_column_wrap(
+            width = 1/2,
+            heights_equal = "row",
+            div(class = "container", style = "margin-top: 1rem;",
+                card(
+                  height = 300,
+                  full_screen = TRUE,
+                  card_body(plotOutput(session$ns("plot")))
+                )
+            ),
+            div(
+              style = "margin-top: 1rem;",
+              organ_info_tabpanel$ui(session$ns("organ_info_tabpanel"))
+            )
+          )
+        )
+      })
+
     })
-
-
-    output$result_screen <- renderUI({
-      tagList(
-        div(
-          style = "margin-top: 2rem;",
-          organ_info_tabpanel$ui(session$ns("organ_info_tabpanel"))
-        ),
-        fluidRow(column(plotOutput(session$ns("plot")), width = 10, offset = 1))
-      )
-    })
-
-    output$table <- renderTable({
-      data.frame(
-        "Name" = c("John Doe", "Jane Doe"),
-        "Age" = c(23, 25)
-      )
-    })
-  })
 }
