@@ -10,6 +10,7 @@ get_plot <- function(simulation_results){
   pc <- ospsuite::DefaultPlotConfiguration$new()
   pc$xUnit <- "h"
   pc$legendPosition <- "outsideTopRight"
+  pc$xAxisTicks <- 0:24
 
   dc$addSimulationResults(simulation_results[[1]])
 
