@@ -4,7 +4,7 @@ box::use(config)
 ORGAN_TAB <- config$get("tab_items", config = "organ_tab")
 
 #' @export
-COFFEE_TYPE <- list(
+COFFEE_TYPES <- list(
   `Espresso` = list(caffeine = 64, water = 30),
   `Americano` = list(caffeine = 77, water = 30),
   `Cappuccino` = list(caffeine = 75, water = 180),
