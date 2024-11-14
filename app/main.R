@@ -53,13 +53,13 @@ server <- function(id) {
       req(app_data$intake_data)
       # Indicate calculation start
       message("Running simulation...")
-      app_data$simulation_results <- ospsuite:::runSimulation(simulation)
+      app_data$simulation_results <- ospsuite:::runSimulations(simulation)
     })
 
     observeEvent(app_data$simulation_results, {
       message("Simulation result received. Destroying intro screen.")
       app_data$destroy_intro_screen <- TRUE
-      result_screen$server("result_screen")
+      result_screen$server("result_screen", app_data)
     })
 
   })
