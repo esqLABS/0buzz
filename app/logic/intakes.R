@@ -11,7 +11,7 @@ set_intakes <- function(simulation, intakes) {
   # Get all relevant paths
   time_paths <- purrr::map(ospsuite::getAllParametersMatching("**|Start time", simulation), "path")
   dose_paths <- purrr::map(ospsuite::getAllParametersMatching("**|Dose", simulation), "path")
-  volume_paths <- purrr::map(ospsuite::getAllParametersMatching("**|Volume of water/body weight", simulation), "path")
+  volume_paths <- purrr::map(ospsuite::getAllParametersMatching("Applications|Coffee Drinks|Solution|Application_*|ProtocolSchemaItem|Amount of water", simulation), "path")
 
   # Keep only enabled intakes
   enabled_intakes <- purrr::keep(intakes, ~ .x$selected)
@@ -42,7 +42,12 @@ set_intakes <- function(simulation, intakes) {
     )
 
     # Set the volume of water
-    # TODO
+    ospsuite::setParameterValuesByPath(
+      parameterPaths = volume_paths[[i]],
+      values = water_volume,
+      unit = "ml",
+      simulation = simulation
+    )
   }
 
   # Set remaining intakes to 0
@@ -66,7 +71,7 @@ set_intakes <- function(simulation, intakes) {
     ospsuite::setParameterValuesByPath(
       parameterPaths = volume_paths[[j]],
       values = 0,
-      unit = "l/kg",
+      unit = "ml",
       simulation = simulation
     )
   }
