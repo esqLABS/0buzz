@@ -5,7 +5,7 @@ box::use(
 )
 
 box::use(
-  app/logic/constants[POPULATIONS, GENDERS],
+  app / logic / constants[POPULATIONS, GENDERS],
 )
 
 set_individual <- function(simulation, user_data) {
@@ -42,13 +42,14 @@ set_individual <- function(simulation, user_data) {
 }
 
 create_individual <- function(user_data) {
+  unit_system <- user_data$unit
   ind_carac <- ospsuite::createIndividualCharacteristics(
     species = "Human",
     population = translate_population(user_data$ethnicity),
     gender = translate_gender(user_data$gender),
     age = as.double(user_data$age),
-    weight = as.double(user_data$weight),
-    height = as.double(convert_height(user_data$height)),
+    weight = convert_weight(user_data$weight, unit_system),
+    height = convert_height(user_data$height, unit_system),
     seed = 42
   )
   return(ospsuite::createIndividual(ind_carac))
@@ -75,8 +76,21 @@ translate_gender <- function(gender) {
     "female" ~ ospsuite::Gender$Female
   )
 }
+convert_height <- function(height, unit_system) {
+  height <- if (unit_system == "imperial") {
+    # feet to cm
+    height * 30.48
+  } else {
+    # meters to cm
+    height * 100
+  }
+  return(as.double(height))
+}
 
-convert_height <- function(height) {
-  # meters to cm
-  return(height * 100)
+convert_weight <- function(weight, unit_system) {
+  weight <- if (unit_system == "imperial") {
+    # lbs to kg
+    weight * 0.453592
+  } else { weight }
+  return(as.double(weight))
 }
