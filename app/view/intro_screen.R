@@ -30,13 +30,18 @@ ui <- makeModuleUIDestroyable(
           unit = "metric",
           intakes = list(
             list(
-              type = list(`Americano` = list(caffeine = 77, water = 30)),
+              type = COFFEE_TYPES["Americano"],
               time = "08:00",
-              selected = FALSE
+              selected = TRUE
             ),
             list(
-              type = list(`Espresso` = list(caffeine = 64, water = 30)),
+              type = COFFEE_TYPES["Latte"],
               time = "10:00",
+              selected = TRUE
+            ),
+            list(
+              type = COFFEE_TYPES["Espresso"],
+              time = "13:30",
               selected = TRUE
             )
           )
