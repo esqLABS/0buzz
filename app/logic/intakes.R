@@ -20,9 +20,8 @@ set_intakes <- function(simulation, intakes) {
   # Add the caffeine and water content to the intake
   # Set the intake in the simulation
   for (i in seq_along(enabled_intakes)) {
-
     caffein_dose <- enabled_intakes[[i]]$type[[1]]$caffeine
-    water_volume <-enabled_intakes[[i]]$type[[1]]$water
+    water_volume <- enabled_intakes[[i]]$type[[1]]$water
     time <- enabled_intakes[[i]]$time
 
     # Set the caffeine dose
@@ -51,7 +50,7 @@ set_intakes <- function(simulation, intakes) {
   }
 
   # Set remaining intakes to 0
-  for (j in (i+1):length(dose_paths)) {
+  for (j in (i + 1):length(dose_paths)) {
     if (j > length(dose_paths)) break
 
     ospsuite::setParameterValuesByPath(
@@ -78,7 +77,7 @@ set_intakes <- function(simulation, intakes) {
 }
 
 
-convert_time_to_min <- function(time){
+convert_time_to_min <- function(time) {
   # Convert time to minutes from midnight
   time <- as.POSIXct(time, format = "%H:%M")
 

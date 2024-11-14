@@ -91,6 +91,8 @@ convert_weight <- function(weight, unit_system) {
   weight <- if (unit_system == "imperial") {
     # lbs to kg
     weight * 0.453592
-  } else { weight }
+  } else {
+    weight
+  }
   return(as.double(weight))
 }

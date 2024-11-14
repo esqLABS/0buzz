@@ -3,7 +3,7 @@ box::use(
   ospsuite
 )
 
-get_plot <- function(simulation_results){
+get_plot <- function(simulation_results) {
   message("Generating time profile plot")
   dc <- ospsuite::DataCombined$new()
 
@@ -14,8 +14,5 @@ get_plot <- function(simulation_results){
 
   dc$addSimulationResults(simulation_results[[1]])
 
-  return(ospsuite::plotIndividualTimeProfile(dc,defaultPlotConfiguration = pc))
-
+  return(ospsuite::plotIndividualTimeProfile(dc, defaultPlotConfiguration = pc))
 }
-
-

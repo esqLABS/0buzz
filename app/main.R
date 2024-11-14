@@ -61,6 +61,5 @@ server <- function(id) {
       app_data$destroy_intro_screen <- TRUE
       result_screen$server("result_screen", app_data)
     })
-
   })
 }

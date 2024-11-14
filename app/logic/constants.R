@@ -4,9 +4,9 @@ box::use(config)
 ORGAN_TAB <- config$get("tab_items", config = "organ_tab")
 
 #' @export
-GENDERS <- c("male","female")
+GENDERS <- c("male", "female")
 
-#'@export
+#' @export
 POPULATIONS <- c("European", "White American", "Black American", "Mexican American", "Asian", "Japanese")
 
 #' @export
