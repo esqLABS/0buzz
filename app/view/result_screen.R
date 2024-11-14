@@ -12,8 +12,8 @@ box::use(
 ui <- function(id) {
   ns <- NS(id)
   tagList(
-    uiOutput(ns("result_screen")),
-    fluidRow(column(plotOutput(ns("plot")), width = 10, offset = 1))
+    uiOutput(ns("result_screen"))
+
   )
 }
 
@@ -34,7 +34,8 @@ server <- function(id, app_data) {
         div(
           style = "margin-top: 2rem;",
           organ_info_tabpanel$ui(session$ns("organ_info_tabpanel"))
-        )
+        ),
+        fluidRow(column(plotOutput(session$ns("plot")), width = 10, offset = 1))
       )
     })
 
