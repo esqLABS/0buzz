@@ -34,8 +34,8 @@ export default function DropdownCoffeeType({ initialValue, dropdownOptions, onCh
                         <li key={index} className="list-item" onClick={() => handleCoffeeSelect(option, index)}>
                             <div>{option}</div>
                             <div className="list-item-coffee-type-description">
-                              <img src="static/icons/water.png"/> {dropdownOptions[option].water}
-                              <img src="static/icons/coffeebeans.png"/> {dropdownOptions[option].caffein}
+                              <img src="static/icons/water.png"/> {dropdownOptions[option].water}<sub>ml</sub>
+                              <img src="static/icons/coffeebeans.png"/> {dropdownOptions[option].caffeine}<sub>mg</sub>
                             </div>
                         </li>
                     ))}
