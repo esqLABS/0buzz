@@ -4,6 +4,10 @@ box::use(
   dplyr[case_match]
 )
 
+box::use(
+  app / logic / constants[POPULATIONS, GENDERS],
+)
+
 set_individual <- function(simulation, user_data) {
   message("Applying individual characteristics to the simulation")
   # Create individual
@@ -38,20 +42,21 @@ set_individual <- function(simulation, user_data) {
 }
 
 create_individual <- function(user_data) {
+  unit_system <- user_data$unit
   ind_carac <- ospsuite::createIndividualCharacteristics(
     species = "Human",
     population = translate_population(user_data$ethnicity),
     gender = translate_gender(user_data$gender),
     age = as.double(user_data$age),
-    weight = as.double(user_data$weight),
-    height = as.double(convert_height(user_data$height)),
+    weight = convert_weight(user_data$weight, unit_system),
+    height = convert_height(user_data$height, unit_system),
     seed = 42
   )
   return(ospsuite::createIndividual(ind_carac))
 }
 
 translate_population <- function(population) {
-  rlang::arg_match(population, c("European", "White American", "Black American", "Mexican American", "Asian", "Japanese"))
+  rlang::arg_match(population, POPULATIONS)
   case_match(
     population,
     "European" ~ ospsuite::HumanPopulation$European_ICRP_2002,
@@ -64,15 +69,30 @@ translate_population <- function(population) {
 }
 
 translate_gender <- function(gender) {
-  rlang::arg_match(gender, c("male", "female"))
+  rlang::arg_match(gender, GENDERS)
   case_match(
     gender,
     "male" ~ ospsuite::Gender$Male,
     "female" ~ ospsuite::Gender$Female
   )
 }
+convert_height <- function(height, unit_system) {
+  height <- if (unit_system == "imperial") {
+    # feet to cm
+    height * 30.48
+  } else {
+    # meters to cm
+    height * 100
+  }
+  return(as.double(height))
+}
 
-convert_height <- function(height) {
-  # meters to cm
-  return(height * 100)
+convert_weight <- function(weight, unit_system) {
+  weight <- if (unit_system == "imperial") {
+    # lbs to kg
+    weight * 0.453592
+  } else {
+    weight
+  }
+  return(as.double(weight))
 }

@@ -4,6 +4,12 @@ box::use(config)
 ORGAN_TAB <- config$get("tab_items", config = "organ_tab")
 
 #' @export
+GENDERS <- c("male", "female")
+
+#' @export
+POPULATIONS <- c("European", "White American", "Black American", "Mexican American", "Asian", "Japanese")
+
+#' @export
 COFFEE_TYPES <- list(
   `Espresso` = list(caffeine = 64, water = 30),
   `Americano` = list(caffeine = 77, water = 30),

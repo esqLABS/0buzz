@@ -11,7 +11,7 @@ set_intakes <- function(simulation, intakes) {
   # Get all relevant paths
   time_paths <- purrr::map(ospsuite::getAllParametersMatching("**|Start time", simulation), "path")
   dose_paths <- purrr::map(ospsuite::getAllParametersMatching("**|Dose", simulation), "path")
-  volume_paths <- purrr::map(ospsuite::getAllParametersMatching("**|Volume of water/body weight", simulation), "path")
+  volume_paths <- purrr::map(ospsuite::getAllParametersMatching("Applications|Coffee Drinks|Solution|Application_*|ProtocolSchemaItem|Amount of water", simulation), "path")
 
   # Keep only enabled intakes
   enabled_intakes <- purrr::keep(intakes, ~ .x$selected)
@@ -20,9 +20,8 @@ set_intakes <- function(simulation, intakes) {
   # Add the caffeine and water content to the intake
   # Set the intake in the simulation
   for (i in seq_along(enabled_intakes)) {
-
     caffein_dose <- enabled_intakes[[i]]$type[[1]]$caffeine
-    water_volume <-enabled_intakes[[i]]$type[[1]]$water
+    water_volume <- enabled_intakes[[i]]$type[[1]]$water
     time <- enabled_intakes[[i]]$time
 
     # Set the caffeine dose
@@ -42,11 +41,16 @@ set_intakes <- function(simulation, intakes) {
     )
 
     # Set the volume of water
-    # TODO
+    ospsuite::setParameterValuesByPath(
+      parameterPaths = volume_paths[[i]],
+      values = water_volume,
+      unit = "ml",
+      simulation = simulation
+    )
   }
 
   # Set remaining intakes to 0
-  for (j in (i+1):length(dose_paths)) {
+  for (j in (i + 1):length(dose_paths)) {
     if (j > length(dose_paths)) break
 
     ospsuite::setParameterValuesByPath(
@@ -66,14 +70,14 @@ set_intakes <- function(simulation, intakes) {
     ospsuite::setParameterValuesByPath(
       parameterPaths = volume_paths[[j]],
       values = 0,
-      unit = "l/kg",
+      unit = "ml",
       simulation = simulation
     )
   }
 }
 
 
-convert_time_to_min <- function(time){
+convert_time_to_min <- function(time) {
   # Convert time to minutes from midnight
   time <- as.POSIXct(time, format = "%H:%M")
 
