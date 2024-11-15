@@ -39,6 +39,10 @@ get_simulation_results <- function(simulation){
   # Remove data before the first non-zero simulationValue (keep last timepoint where simulationValue is 0)
   start_row <- which(df$simulationValues != 0)[1] - length(unique(df$paths))
 
+  # In case concentration is 0 for whole simulation (no intake enabled)
+  if (is.na(start_row)){
+    start_row <- 1
+  }
 
   # Subset the data starting from that row
   df <- filter(df, row_number() >= start_row) %>%
