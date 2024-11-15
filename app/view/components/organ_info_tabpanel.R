@@ -1,9 +1,11 @@
 box::use(
   shiny[...],
+  htmlwidgets[JS]
 )
 
 box::use(
   constants = app/logic/constants[ORGAN_TAB],
+  helpers = app/logic/helpers[TAB_ELEMENT_SELECTED]
 )
 
 #' @export
@@ -25,6 +27,9 @@ ui <- function(id) {
               role="presentation organ-list",
               tags$a(
                 href=paste0("#tab-", constants$ORGAN_TAB[[x]]$tab_url, "-", x),
+                onclick = JS(
+                  helpers$TAB_ELEMENT_SELECTED(ns("active-tab"), constants$ORGAN_TAB[[x]]$tab_url)
+                ),
                 `data-toggle`="tab",
                 `data-bs-toggle`="tab",
                 `data-value`=constants$ORGAN_TAB[[x]]$name,
@@ -90,6 +95,11 @@ ui <- function(id) {
 server <- function(id) {
   moduleServer(id, function(input, output, session) {
     message("Server started - organ tab")
+
+    observeEvent(input$active_tab, {
+      message("Active tab: ")
+      print(input$active_tab)
+    }, ignoreNULL = "TRUE")
 
   })
 }
