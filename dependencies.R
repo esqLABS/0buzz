@@ -1,8 +1,12 @@
 # This file allows packrat (used by rsconnect during deployment) to pick up dependencies.
 library(bslib)
+library(gghighlight)
 library(htmlwidgets)
+library(lubridate)
 library(ospsuite)
+library(purrr)
 library(rhino)
+library(scales)
 library(shiny.destroy)
 library(shiny.react)
 library(treesitter)

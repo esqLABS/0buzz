@@ -49,6 +49,9 @@ set_intakes <- function(simulation, intakes) {
     )
   }
 
+  # in case there are 0 enabled_intakes
+  if(is.null(i)) i <- 0
+
   # Set remaining intakes to 0
   for (j in (i + 1):length(dose_paths)) {
     if (j > length(dose_paths)) break
