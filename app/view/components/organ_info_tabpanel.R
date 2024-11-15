@@ -28,7 +28,7 @@ ui <- function(id) {
               tags$a(
                 href=paste0("#tab-", constants$ORGAN_TAB[[x]]$tab_url, "-", x),
                 onclick = JS(
-                  helpers$TAB_ELEMENT_SELECTED(ns("active-tab"), constants$ORGAN_TAB[[x]]$tab_url)
+                  helpers$TAB_ELEMENT_SELECTED(ns("active_tab"), constants$ORGAN_TAB[[x]]$tab_url)
                 ),
                 `data-toggle`="tab",
                 `data-bs-toggle`="tab",
@@ -99,7 +99,7 @@ server <- function(id) {
     observeEvent(input$active_tab, {
       message("Active tab: ")
       print(input$active_tab)
-    }, ignoreNULL = "TRUE")
+    }, ignoreNULL = FALSE)
 
   })
 }
