@@ -7,7 +7,7 @@ box::use(
 
 box::use(
   app/view/react[edit_intake_data, edit_user_data],
-  app/logic/constants[COFFEE_TYPES, POPULATIONS, METABOLISM, UNITS]
+  app/logic/constants[DRINK_TYPES, POPULATIONS, METABOLISM, UNITS]
 )
 
 #' @export
@@ -66,7 +66,7 @@ server <- makeModuleServerDestroyable(
             init_shiny_data = app_data$user_data,
             ethinicity_options = POPULATIONS,
             metabolism_options = METABOLISM,
-            coffee_type_options = COFFEE_TYPES,
+            coffee_type_options = DRINK_TYPES,
             unit_options = UNITS
           )
         )
@@ -77,7 +77,7 @@ server <- makeModuleServerDestroyable(
           edit_intake_data(
             id = session$ns("edit_intake_data"),
             init_shiny_data = app_data$intake_data,
-            coffee_type_options = COFFEE_TYPES
+            coffee_type_options = DRINK_TYPES
           )
         )
       })

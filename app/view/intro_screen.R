@@ -3,7 +3,7 @@ box::use(
   shiny[moduleServer, NS, tagList, observeEvent],
 )
 box::use(
-  app/logic/constants[COFFEE_TYPES, POPULATIONS, METABOLISM, UNITS],
+  app/logic/constants[DRINK_TYPES, POPULATIONS, METABOLISM, UNITS],
   app/view/react[intro_screen_page], # Import the component.
 )
 
@@ -16,7 +16,7 @@ ui <- makeModuleUIDestroyable(
         id = ns("stepper"),
         ethinicity_options = POPULATIONS,
         metabolism_options = METABOLISM,
-        coffee_type_options = COFFEE_TYPES,
+        coffee_type_options = DRINK_TYPES,
         unit_options = UNITS,
         init_shiny_data = list(
           ethnicity = "European",
@@ -30,17 +30,17 @@ ui <- makeModuleUIDestroyable(
           unit = "metric",
           intakes = list(
             list(
-              type = COFFEE_TYPES["Americano"],
+              type = DRINK_TYPES["Americano"],
               time = "08:00",
               selected = TRUE
             ),
             list(
-              type = COFFEE_TYPES["Latte"],
+              type = DRINK_TYPES["Latte"],
               time = "10:00",
               selected = TRUE
             ),
             list(
-              type = COFFEE_TYPES["Espresso"],
+              type = DRINK_TYPES["Espresso"],
               time = "13:30",
               selected = TRUE
             )
