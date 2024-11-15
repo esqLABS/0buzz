@@ -40,12 +40,14 @@ server <- function(id) {
 
     # When user characteristics are received, apply them to the simulation
     observeEvent(app_data$user_data, {
+      app_data$simulation_results <- NULL
       message("1. User data edited!")
       set_individual(simulation, app_data$user_data)
     })
 
     # When user modifies caffeine intakes, update the simulation
     observeEvent(app_data$intake_data, {
+      app_data$simulation_results <- NULL
       message("2. Intake data edited!")
       set_intakes(simulation, app_data$intake_data)
     })
@@ -60,7 +62,6 @@ server <- function(id) {
 
     observeEvent(app_data$simulation_results, {
       message("Simulation result received. Destroying intro screen.")
-      # app_data$destroy_intro_screen <- TRUE
       result_screen$server("result_screen", app_data)
     }, once = TRUE)
 
