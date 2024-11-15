@@ -28,7 +28,7 @@ ui <- function(id) {
               tags$a(
                 href=paste0("#tab-", constants$ORGAN_TAB[[x]]$tab_url, "-", x),
                 onclick = JS(
-                  helpers$TAB_ELEMENT_SELECTED(ns("active-tab"), constants$ORGAN_TAB[[x]]$tab_url)
+                  helpers$TAB_ELEMENT_SELECTED(ns("active_tab"), constants$ORGAN_TAB[[x]]$tab_url)
                 ),
                 `data-toggle`="tab",
                 `data-bs-toggle`="tab",
@@ -92,14 +92,16 @@ ui <- function(id) {
 }
 
 #' @export
-server <- function(id) {
+server <- function(id, app_data) {
   moduleServer(id, function(input, output, session) {
     message("Server started - organ tab")
 
-    observeEvent(input$active_tab, {
-      message("Active tab: ")
-      print(input$active_tab)
-    }, ignoreNULL = "TRUE")
-
+    observeEvent(input$active_tab,
+      {
+        message("Active tab changed: ", input$active_tab)
+        app_data$active_tab <- input$active_tab
+      },
+      ignoreNULL = TRUE
+    )
   })
 }

@@ -17,7 +17,6 @@ ui <- function(id) {
     ns <- NS(id)
     tagList(
       uiOutput(ns("result_screen"))
-
     )
 }
 
@@ -25,7 +24,7 @@ ui <- function(id) {
 server <- function(id, app_data) {
     moduleServer(id, function(input, output, session) {
       message("Server started - result screen")
-      organ_info_tabpanel$server("organ_info_tabpanel")
+      organ_info_tabpanel$server("organ_info_tabpanel", app_data)
 
       observeEvent(input$edit, {
         message("Edit modal open")

@@ -30,7 +30,8 @@ server <- function(id) {
       destroy_intro_screen = NULL,
       user_data = NULL,
       intake_data = NULL,
-      simulation_results = NULL
+      simulation_results = NULL,
+      active_tab = NULL
     )
 
 
