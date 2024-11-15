@@ -35,7 +35,7 @@ server <- function(id, app_data) {
 
       output$plot <- renderPlot({
         app_data$destroy_intro_screen <- TRUE # remove loading screen
-        get_plot(app_data$simulation_results)
+        get_plot(app_data)
       })
 
 

@@ -1,13 +1,12 @@
 box::use(
   bslib[page],
   shiny[moduleServer, NS, observeEvent, reactiveValues, req],
-  ospsuite[runSimulation]
 )
 box::use(
   # Import the component
   app/view/intro_screen,
   app/view/result_screen,
-  app/logic/simulation[load_simulation],
+  app/logic/simulation[load_simulation, get_simulation_results],
   app/logic/individual[set_individual],
   app/logic/intakes[set_intakes]
 )
@@ -56,7 +55,7 @@ server <- function(id) {
       req(app_data$intake_data)
       # Indicate calculation start
       message("Running simulation...")
-      app_data$simulation_results <- ospsuite:::runSimulations(simulation)
+      app_data$simulation_results <- get_simulation_results(simulation)
     })
 
     observeEvent(app_data$simulation_results, {
