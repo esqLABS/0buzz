@@ -128,14 +128,14 @@
     },
     "Rcpp": {
       "Package": "Rcpp",
-      "Version": "1.0.13",
+      "Version": "1.0.13-1",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "CRAN",
       "Requirements": [
         "methods",
         "utils"
       ],
-      "Hash": "f27411eb6d9c3dada5edd444b8416675"
+      "Hash": "6b868847b365672d6c1677b1608da9ed"
     },
     "askpass": {
       "Package": "askpass",
@@ -964,17 +964,18 @@
     },
     "ospsuite": {
       "Package": "ospsuite",
-      "Version": "12.1.0",
+      "Version": "12.1.0.9007",
       "Source": "git",
       "RemoteType": "git",
       "RemoteUrl": "https://github.com/Open-Systems-Pharmacology/OSPSuite-R",
       "RemoteHost": "api.github.com",
       "RemoteUsername": "Open-Systems-Pharmacology",
       "RemoteRepo": "OSPSuite-R",
-      "RemoteRef": "v12.1.0",
-      "RemoteSha": "3b4949352f84a09a765ad238c627a1e7d4ad66e0",
+      "RemoteRef": "main",
+      "RemoteSha": "af8ae73d00149143fd8380473ac65668960c4fc2",
       "Requirements": [
         "R",
+        "cli",
         "data.table",
         "dplyr",
         "ggplot2",
@@ -985,12 +986,13 @@
         "rSharp",
         "readr",
         "rlang",
+        "showtext",
         "stringr",
         "tidyr",
         "tlf",
         "xml2"
       ],
-      "Hash": "4e9e1b7d174572cef12c073dd4624505"
+      "Hash": "7d34d8c3bdc36add33729c82e6dd5df8"
     },
     "ospsuite.utils": {
       "Package": "ospsuite.utils",
@@ -1496,6 +1498,29 @@
       ],
       "Hash": "fa57edbccd143b66d9214208a3273bc6"
     },
+    "showtext": {
+      "Package": "showtext",
+      "Version": "0.9-7",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "grDevices",
+        "showtextdb",
+        "sysfonts"
+      ],
+      "Hash": "ebc23fc796c28737ffe0a64e5404f3d1"
+    },
+    "showtextdb": {
+      "Package": "showtextdb",
+      "Version": "3.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "sysfonts",
+        "utils"
+      ],
+      "Hash": "c12e756cf947e58b0f2c2a520521a5a8"
+    },
     "sourcetools": {
       "Package": "sourcetools",
       "Version": "0.1.7-1",
@@ -1561,6 +1586,13 @@
       "Source": "Repository",
       "Repository": "CRAN",
       "Hash": "de342ebfebdbf40477d0758d05426646"
+    },
+    "sysfonts": {
+      "Package": "sysfonts",
+      "Version": "0.8.9",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "7dfca1e9c5c278300b5ca6a1772072f7"
     },
     "testthat": {
       "Package": "testthat",
@@ -1798,28 +1830,28 @@
     },
     "withr": {
       "Package": "withr",
-      "Version": "3.0.1",
+      "Version": "3.0.2",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "grDevices",
         "graphics"
       ],
-      "Hash": "07909200e8bbe90426fbfeb73e1e27aa"
+      "Hash": "cc2d62c76458d425210d1eb1478b30b4"
     },
     "xfun": {
       "Package": "xfun",
-      "Version": "0.48",
+      "Version": "0.49",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "CRAN",
       "Requirements": [
         "R",
         "grDevices",
         "stats",
         "tools"
       ],
-      "Hash": "89e455b87c84e227eb7f60a1b4e5fe1f"
+      "Hash": "8687398773806cfff9401a2feca96298"
     },
     "xml2": {
       "Package": "xml2",
