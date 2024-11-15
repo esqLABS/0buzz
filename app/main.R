@@ -30,7 +30,7 @@ server <- function(id) {
       user_data = NULL,
       intake_data = NULL,
       simulation_results = NULL,
-      active_tab = NULL
+      active_tab = "brain"
     )
 
 

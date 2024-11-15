@@ -3,6 +3,7 @@ box::use(
   shiny[div, h1, h3, img, moduleServer, NS, renderTable, renderUI, renderPlot, plotOutput, tableOutput, tagList, uiOutput, observeEvent],
   shiny.destroy[destroyModule, makeModuleServerDestroyable, makeModuleUIDestroyable],
   htmlwidgets[JS],
+  # ggiraph[girafeOutput, renderGirafe]
 )
 
 box::use(
@@ -33,11 +34,15 @@ server <- function(id, app_data) {
       })
 
 
+      # output$plot <- renderGirafe({
+      #   app_data$destroy_intro_screen <- TRUE # remove loading screen
+      #   get_plot(app_data)
+      # })
+
       output$plot <- renderPlot({
         app_data$destroy_intro_screen <- TRUE # remove loading screen
         get_plot(app_data)
       })
-
 
       output$result_screen <- renderUI({
         tagList(
@@ -57,7 +62,10 @@ server <- function(id, app_data) {
                 card(
                   height = 300,
                   full_screen = TRUE,
-                  card_body(plotOutput(session$ns("plot")))
+                  card_body(
+                    # girafeOutput(session$ns("plot"))
+                    plotOutput(session$ns("plot"))
+                    )
                 )
             ),
             div(
